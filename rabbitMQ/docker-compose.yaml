@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: elbuensabor_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      elbuensabor_network:
+        ipv4_address: 172.18.0.30
+
+networks:
+  elbuensabor_network:
+    external: true

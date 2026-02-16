@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  reservas-db:
+    image: mysql:8.0
+    container_name: elbuensabor_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=qu1Nch1nK 
+      - MYSQL_DATABASE=elbuensabor_db
+      - MYSQL_USER=redStak
+      - MYSQL_PASSWORD=qu1Nch1nK
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      elbuensabor_network:
+        ipv4_address: 172.18.0.202
+
+volumes:
+  mysql_data:
+
+networks:
+  elbuensabor_network:
+    external: true

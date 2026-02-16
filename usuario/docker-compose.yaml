@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  usuarios:
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://redStak:qu1Nch1nK@172.18.0.201:27017/elbuensabor_db?authSource=admin
+      - SPRING_PROFILES_ACTIVE=default
+    deploy:
+      mode: replicated
+      replicas: 2
+    networks:
+      - elbuensabor_network
+    restart: always
+
+networks:
+  elbuensabor_network:
+    external: true

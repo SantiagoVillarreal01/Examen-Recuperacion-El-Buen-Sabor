@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: elbuensabor_nginx
+    ports:
+      - "80:80" 
+    networks:
+      - elbuensabor_network
+
+networks:
+  elbuensabor_network:
+    external: true

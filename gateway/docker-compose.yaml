@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: dockerfile
+    expose:
+      - "9091"
+    deploy:
+      mode: replicated
+      replicas: 2
+    networks:
+      - elbuensabor_network
+
+networks:
+  elbuensabor_network:
+    external: true

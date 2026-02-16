@@ -1,0 +1,64 @@
+//Url del API
+@url = http://localhost:8080/api
+
+### HACER RESERVAS
+POST  {{url}}/reservation/make-reservation?name=Alexander DLC&date=2026-01-14&people=7
+Content-Type: application/json
+
+### PRUEBA 2: Ver todas las reservas (CDU03)
+GET {{url}}/reservation/all-reservations
+
+### PRUEBA 3: Ver reservas con paginación
+GET {{url}}/reservation/all-reservations/1
+
+### PRUEBA 4: Obtener una reserva específica por codigo de reserva
+### codigo de reserva B3MCTU, cambiar segun las reservas creadas
+GET {{url}}/reservation/get-reservation/B3MCTU
+
+### PRUEBA 5: Cancelar una reserva
+PUT {{url}}/reservation/cancel-reservation/B3MCTU
+
+### PRUEBA 6: Completar una reserva
+PUT {{url}}/reservation/complete-reservation/B3MCTU
+
+### PRUEBA 7: Modificar una reserva existente
+PUT  {{url}}/reservation/modify-reservation/B3MCTU?name=Edwin Modified&date=2027-02-15&state=CANCELADA&table=1&people=3
+
+### PRUEBA 8: Registrar un nuevo usuario (CDU01)
+POST {{url}}/auth/registro
+Content-Type: application/json
+
+{
+    "nombreUsuario": "Alexander",
+    "apellidoUsuario": "Nuevo",
+    "emailUsuario": "nuevo@correo.com",
+    "passwordUsuario": "123456789",
+    "passwordConfirmar": "123456789"
+}
+
+### PRUEBA 8: Error en Registro (Contraseñas no coinciden)
+POST {{url}}/auth/registro
+Content-Type: application/json
+
+{
+    "nombreUsuario": "Test",
+    "apellidoUsuario": "Error",
+    "emailUsuario": "prueba@correo.com",
+    "passwordUsuario": "123",
+    "passwordConfirmar": "999"
+}
+
+### PRUEBA 9: Error en Registro (Email ya existe)
+POST {{url}}/auth/registro
+Content-Type: application/json
+
+{
+    "nombreUsuario": "Test",
+    "apellidoUsuario": "Error",
+    "emailUsuario": "prueba@correo.com",
+    "passwordUsuario": "123",
+    "passwordConfirmar": "123"
+}
+
+### PRUEBA 10: Listar todos los usuarios (CDU02)
+GET {{url}}/auth/users
