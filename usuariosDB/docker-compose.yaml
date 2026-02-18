@@ -12,13 +12,10 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-    networks:
-      elbuensabor_network:
-        ipv4_address: 172.18.0.201
 
 volumes:
   mongo_data:
 
 networks:
-  elbuensabor_network:
-    external: true
+  default:
+    driver: bridge

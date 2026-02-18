@@ -6,10 +6,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      elbuensabor_network:
-        ipv4_address: 172.18.0.30
+    restart: always
 
 networks:
-  elbuensabor_network:
-    external: true
+  default:
+    driver: bridge

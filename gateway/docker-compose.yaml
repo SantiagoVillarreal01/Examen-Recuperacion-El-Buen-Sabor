@@ -4,14 +4,13 @@ services:
     build:
       context: .
       dockerfile: dockerfile
-    expose:
-      - "9091"
     deploy:
       mode: replicated
       replicas: 2
-    networks:
-      - elbuensabor_network
+    ports:
+      - "9091-9092:9091"
+    restart: always
 
 networks:
-  elbuensabor_network:
-    external: true
+  default:
+    driver: bridge

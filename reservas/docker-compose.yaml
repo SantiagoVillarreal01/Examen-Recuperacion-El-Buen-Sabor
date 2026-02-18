@@ -1,15 +1,25 @@
 version: '3.8'
 services:
-  reservas:
+  reservas-1:
     build:
       context: .
       dockerfile: dockerfile
-    deploy:
-      mode: replicated
-      replicas: 2
-    networks:
-      - elbuensabor_network
+    environment:
+      - SERVER_PORT=8083
+    ports:
+      - "8083:8083"
+    restart: always
+
+  reservas-2:
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - SERVER_PORT=8084
+    ports:
+      - "8084:8084"
+    restart: always
 
 networks:
-  elbuensabor_network:
-    external: true
+  default:
+    driver: bridge
