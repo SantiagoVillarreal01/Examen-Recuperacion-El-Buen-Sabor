@@ -2,7 +2,6 @@ package com.elbuensabor.reservas.reservas.controllers.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elbuensabor.reservas.reservas.controllers.converters.ResultAPI;
 import com.elbuensabor.reservas.reservas.controllers.rabbit.RabbitMessage;
-import com.elbuensabor.reservas.reservas.logic.usercases.UpdateReservationStatusUseCase;
 import com.elbuensabor.reservas.reservas.logic.usercases.GetAllReservationsUseCase;
 import com.elbuensabor.reservas.reservas.logic.usercases.GetReservationUseCase;
 import com.elbuensabor.reservas.reservas.logic.usercases.MakeReservationUseCase;
 import com.elbuensabor.reservas.reservas.logic.usercases.ModifyReservationUseCase;
+import com.elbuensabor.reservas.reservas.logic.usercases.UpdateReservationStatusUseCase;
 
 @RestController
 @RequestMapping("/api/reserva")
@@ -76,7 +75,7 @@ public class ReservationService {
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
-    @PutMapping("/cancel/{reservationId}")
+    @GetMapping("/cancel/{reservationId}")
     public ResultAPI cancelReservation(@PathVariable("reservationId") String reservationId) {
         rabbitMessage.sendLog("/api/reserva/cancel/" + reservationId);
         return stateReservation.cancel(reservationId).fold(
@@ -84,7 +83,7 @@ public class ReservationService {
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
-    @PutMapping("/complete/{reservationId}")
+    @GetMapping("/complete/{reservationId}")
     public ResultAPI completeReservation(@PathVariable("reservationId") String reservationId) {
         rabbitMessage.sendLog("/api/reserva/complete/" + reservationId);
         return stateReservation.complete(reservationId).fold(
@@ -92,7 +91,7 @@ public class ReservationService {
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
-    @PutMapping("/update/{reservationId}")
+    @GetMapping("/update/{reservationId}")
     public ResultAPI modifyReservation(
             @PathVariable("reservationId") String reservationId,
             @RequestParam("name") String newUserName,

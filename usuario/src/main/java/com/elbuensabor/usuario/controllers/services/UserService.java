@@ -57,11 +57,11 @@ public class UserService {
                 ex -> ResponseEntity.badRequest().body(ex.getMessage()));
         }
 
-    @PutMapping("/update/{userId}?")
+    @GetMapping("/update/{userId}")
     public ResponseEntity<?> update(@PathVariable("userId") String userId,
-            @RequestParam String name,
-            @RequestParam String lastName,
-            @RequestParam String email) {
+            @RequestParam("name") String name,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email) {
         rabbitMessage.sendLog("/api/usuario/update/" + userId);
         return editUser.update(userId, name, lastName, email).fold(
                 ResponseEntity::ok,
@@ -84,7 +84,7 @@ public class UserService {
                 ex -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()));
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @GetMapping("/delete/{userId}")
     public ResponseEntity<?> delete(@PathVariable("userId") String userId) {
         rabbitMessage.sendLog("/api/usuario/delete/" + userId);
         return deleteUser.delete(userId).fold(
